@@ -572,3 +572,85 @@ console.log(
 // END OF SCRIPT
 // ========================================
 
+// modal form
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const openBtn = document.getElementById("openReservation");
+    const modal = document.getElementById("reservationModal");
+    const closeBtn = document.getElementById("closeModal");
+    const form = document.getElementById("reservationForm");
+
+    const phoneNumber = "6281280609087"; // nomor WA tanpa 0 depan
+
+    openBtn.addEventListener("click", function () {
+        modal.classList.add("active");
+    });
+
+    closeBtn.addEventListener("click", function () {
+        modal.classList.remove("active");
+    });
+
+    window.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
+    });
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const nama = document.getElementById("nama").value;
+        const tanggal = document.getElementById("tanggal").value;
+        const jam = document.getElementById("jam").value;
+        const keterangan = document.getElementById("keterangan").value;
+
+        const message = `
+Halo Warung Kumpul 88 👋
+
+Saya ingin melakukan reservasi:
+
+Nama: ${nama}
+Tanggal: ${tanggal}
+Jam: ${jam}
+Keterangan: ${keterangan}
+
+Terima kasih 🙏
+        `;
+
+        const encodedMessage = encodeURIComponent(message.trim());
+        const waURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+        window.open(waURL, "_blank");
+
+        modal.classList.remove("active");
+        form.reset();
+    });
+
+});
+document.addEventListener("DOMContentLoaded", function () {
+
+    const modal = document.getElementById("reservationModal");
+    const closeBtn = document.getElementById("closeModal");
+
+    /* SELECT ALL BUTTON WA */
+    const openButtons = document.querySelectorAll(".open-reservation");
+
+    openButtons.forEach(btn => {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            modal.classList.add("active");
+        });
+    });
+
+    closeBtn.addEventListener("click", function () {
+        modal.classList.remove("active");
+    });
+
+    window.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.classList.remove("active");
+        }
+    });
+
+});
