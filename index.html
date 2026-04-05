@@ -618,28 +618,28 @@
     <!-- Reservation Modal -->
     <div class="modal" id="reservationModal">
         <div class="modal-content">
-            <span class="close-btn" id="closeModal">&times;</span>
+            <button type="button" class="close-btn" id="closeModal" aria-label="Tutup">&times;</button>
             <h2>Form Reservasi</h2>
 
             <form id="reservationForm">
                 <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" id="nama" required>
+                    <label for="nama">Nama</label>
+                    <input type="text" id="nama" name="nama" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Tanggal</label>
-                    <input type="date" id="tanggal" required>
+                    <label for="tanggal">Tanggal</label>
+                    <input type="date" id="tanggal" name="tanggal" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Jam</label>
-                    <input type="time" id="jam" required>
+                    <label for="jam">Jam</label>
+                    <input type="time" id="jam" name="jam" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Keterangan</label>
-                    <textarea id="keterangan" rows="3"></textarea>
+                    <label for="keterangan">Keterangan</label>
+                    <textarea id="keterangan" name="keterangan" rows="3"></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">
@@ -651,11 +651,10 @@
 
 
     <!-- Floating WhatsApp Button -->
-   <a href="javascript:void(0)" class="whatsapp-float open-reservation" aria-label="WhatsApp"
-    id="whatsappFloat">
-    <span class="whatsapp-icon">💬</span>
-</a>
-
+    <a href="#" class="whatsapp-float open-reservation" aria-label="WhatsApp" id="whatsappFloat"
+        onclick="event.preventDefault()">
+        <span class="whatsapp-icon">💬</span>
+    </a>
 
     <!-- Back to Top Button -->
     <button class="back-to-top" id="backToTop" aria-label="Back to top">

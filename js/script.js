@@ -572,85 +572,70 @@ console.log(
 // END OF SCRIPT
 // ========================================
 
-// modal form
+// ========================================
+// RESERVATION MODAL + WHATSAPP
+// ========================================
+document.addEventListener('DOMContentLoaded', function () {
+  const modal = document.getElementById('reservationModal')
+  const closeBtn = document.getElementById('closeModal')
+  const form = document.getElementById('reservationForm')
+  const openButtons = document.querySelectorAll('.open-reservation')
 
-document.addEventListener("DOMContentLoaded", function () {
+  const phoneNumber = '6281280609087' // tanpa 0 depan
 
-    const openBtn = document.getElementById("openReservation");
-    const modal = document.getElementById("reservationModal");
-    const closeBtn = document.getElementById("closeModal");
-    const form = document.getElementById("reservationForm");
+  // OPEN MODAL (semua tombol WA / reservasi)
+  openButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault()
+      modal.classList.add('active')
+    })
+  })
 
-    const phoneNumber = "6281280609087"; // nomor WA tanpa 0 depan
+  // CLOSE MODAL (tombol X)
+  closeBtn.addEventListener('click', function () {
+    modal.classList.remove('active')
+  })
 
-    openBtn.addEventListener("click", function () {
-        modal.classList.add("active");
-    });
+  // CLOSE kalau klik luar modal
+  window.addEventListener('click', function (e) {
+    if (e.target === modal) {
+      modal.classList.remove('active')
+    }
+  })
 
-    closeBtn.addEventListener("click", function () {
-        modal.classList.remove("active");
-    });
+  // SUBMIT FORM → WHATSAPP
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
 
-    window.addEventListener("click", function (e) {
-        if (e.target === modal) {
-            modal.classList.remove("active");
-        }
-    });
+    const nama = document.getElementById('nama').value.trim()
+    const tanggal = document.getElementById('tanggal').value
+    const jam = document.getElementById('jam').value
+    const keterangan = document.getElementById('keterangan').value.trim()
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+    // validasi simple
+    if (!nama || !tanggal || !jam) {
+      alert('Mohon lengkapi data reservasi!')
+      return
+    }
 
-        const nama = document.getElementById("nama").value;
-        const tanggal = document.getElementById("tanggal").value;
-        const jam = document.getElementById("jam").value;
-        const keterangan = document.getElementById("keterangan").value;
-
-        const message = `
-Halo Warung Kumpul 88 👋
+    const message = `Halo Warung Kumpul 88 👋
 
 Saya ingin melakukan reservasi:
 
 Nama: ${nama}
 Tanggal: ${tanggal}
 Jam: ${jam}
-Keterangan: ${keterangan}
+Keterangan: ${keterangan || '-'}
 
-Terima kasih 🙏
-        `;
+Terima kasih 🙏`
 
-        const encodedMessage = encodeURIComponent(message.trim());
-        const waURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    const encodedMessage = encodeURIComponent(message)
+    const waURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
 
-        window.open(waURL, "_blank");
+    window.open(waURL, '_blank')
 
-        modal.classList.remove("active");
-        form.reset();
-    });
-
-});
-document.addEventListener("DOMContentLoaded", function () {
-
-    const modal = document.getElementById("reservationModal");
-    const closeBtn = document.getElementById("closeModal");
-
-    /* SELECT ALL BUTTON WA */
-    const openButtons = document.querySelectorAll(".open-reservation");
-
-    openButtons.forEach(btn => {
-        btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            modal.classList.add("active");
-        });
-    });
-
-    closeBtn.addEventListener("click", function () {
-        modal.classList.remove("active");
-    });
-
-    window.addEventListener("click", function (e) {
-        if (e.target === modal) {
-            modal.classList.remove("active");
-        }
-    });
-
-});
+    // reset & tutup modal
+    form.reset()
+    modal.classList.remove('active')
+  })
+})
